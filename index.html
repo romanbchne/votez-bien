@@ -1,370 +1,212 @@
 <!doctype html>
-<html lang="fr"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Votez bien !">
-<title>Votez bien ! — Votre profil politique</title><link rel="manifest" href="manifest.json">
-<style>
-:root{--bg:#f5f7fb;--card:#fff;--ink:#101828;--muted:#667085;--line:#e4e7ec;--brand:#101828;--violet:#625df5;--violet2:#8d89ff;--soft:#efefff;--left:#d4475b;--right:#3478d4;--center:#98a2b3;--green:#087443;--amber:#b54708;--amberSoft:#fffaeb;--shadow:0 20px 60px rgba(16,24,40,.08);--r:24px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--ink);background:radial-gradient(circle at 0 0,rgba(98,93,245,.09),transparent 30rem),radial-gradient(circle at 100% 20%,rgba(52,120,212,.08),transparent 28rem),var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.app{min-height:100vh}.top{position:sticky;top:0;z-index:30;background:rgba(245,247,251,.8);backdrop-filter:blur(18px);border-bottom:1px solid rgba(228,231,236,.8)}.topIn{width:min(1180px,100%);margin:auto;padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:950;letter-spacing:-.04em}.mark{width:36px;height:36px;border-radius:13px;background:linear-gradient(145deg,#090e1c,#303a56);display:grid;place-items:center;color:#fff;box-shadow:0 8px 20px rgba(16,24,40,.16)}.navBtns{display:flex;gap:7px}.navBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff}.shell{width:min(1180px,100%);margin:auto;padding:0 18px 70px}.screen{display:none}.screen.active{display:block;animation:enter .28s ease}@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.hero{padding:66px 0 36px;max-width:930px}.eyebrow{font-size:11px;font-weight:950;letter-spacing:.15em;text-transform:uppercase;color:var(--violet)}h1{font-size:clamp(44px,8vw,88px);line-height:.93;letter-spacing:-.075em;margin:14px 0 20px}h2{font-size:clamp(30px,4vw,50px);line-height:1.03;letter-spacing:-.05em;margin:0 0 12px}h3{font-size:19px;letter-spacing:-.02em;margin:0 0 8px}.lead{font-size:20px;line-height:1.58;color:#475467;max-width:820px}.muted{color:var(--muted);line-height:1.58}.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}.card{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--r);padding:23px;box-shadow:var(--shadow)}.tile{min-height:175px}.icon{width:44px;height:44px;border-radius:14px;background:var(--soft);color:var(--violet);display:grid;place-items:center;font-weight:950;margin-bottom:14px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{min-height:48px;border:0;border-radius:15px;padding:12px 17px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{color:#fff;background:linear-gradient(135deg,#101828,#2b3550);box-shadow:0 11px 24px rgba(16,24,40,.17)}.secondary{color:var(--ink);background:#fff;border:1px solid var(--line)}.soft{color:var(--violet);background:var(--soft)}.ghost{color:var(--muted);background:transparent;border:0}.notice{padding:15px 16px;border:1px solid var(--line);background:#f8fafc;border-radius:16px;color:#475467;line-height:1.52}.section{margin-top:48px}.sectionHead{display:flex;justify-content:space-between;align-items:flex-end;gap:25px;margin-bottom:15px}.sectionHead p{margin:0;max-width:650px;color:var(--muted);line-height:1.55}.footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:#98a2b3;line-height:1.6;text-align:center}.resume{display:none;margin-top:15px}.resume.show{display:block}.resumeRow{display:flex;align-items:center;justify-content:space-between;gap:14px}
-/* onboarding */.steps{display:flex;gap:7px;margin-bottom:20px}.step{flex:1;height:8px;border-radius:99px;background:#e5e7eb}.step.on{background:var(--violet)}.choiceGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.bigChoice{border:1.5px solid var(--line);background:#fff;border-radius:17px;padding:17px;text-align:left;font-weight:850;line-height:1.4}.bigChoice.sel{background:var(--soft);border-color:var(--violet)}.topicGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.topicBtn{border:1px solid var(--line);background:#fff;border-radius:14px;padding:11px 9px;font-size:12px;font-weight:850;color:#344054}.topicBtn.sel{background:#111827;color:#fff;border-color:#111827}
-/* quiz */.quiz{max-width:910px;margin:30px auto}.quizTop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.pills{display:flex;flex-wrap:wrap;gap:7px}.pill{padding:7px 10px;border-radius:999px;background:#eef1f5;color:#475467;font-size:11px;font-weight:900}.progressRow{display:flex;align-items:center;gap:12px;margin-bottom:22px}.progress{height:9px;flex:1;background:#e9edf3;border-radius:99px;overflow:hidden}.progress span{height:100%;display:block;background:linear-gradient(90deg,#7b75ff,#4f87e8);border-radius:99px;transition:width .3s}.pct{width:44px;text-align:right;font-size:12px;color:var(--muted);font-weight:900}.qcard{padding:28px}.qtitle{font-size:clamp(26px,4vw,36px);line-height:1.18;letter-spacing:-.04em;margin:8px 0 19px}.choices{display:grid;gap:10px}.choice{position:relative;width:100%;text-align:left;border:1.5px solid var(--line);border-radius:17px;background:#fff;padding:16px;display:flex;gap:12px;align-items:flex-start;transition:.15s}.choice:hover{border-color:#b9b9f5;background:#fcfcff}.choice.sel{border-color:var(--violet);background:var(--soft);box-shadow:0 0 0 3px rgba(98,93,245,.08)}.letter{width:29px;height:29px;border-radius:10px;background:#f2f4f7;display:grid;place-items:center;font-size:12px;font-weight:950;flex:0 0 29px}.choice.sel .letter{background:var(--violet);color:#fff}.choiceText{font-weight:760;line-height:1.48;padding-right:20px}.check{position:absolute;right:14px;top:14px;width:20px;height:20px;border-radius:50%;border:2px solid #cbd5e1}.choice.sel .check{border-color:var(--violet);background:var(--violet)}.choice.sel .check:after{content:"";display:block;width:6px;height:3px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);margin:5px 0 0 5px}.unknown{margin-top:10px}.importance{padding-top:21px;margin-top:23px;border-top:1px solid var(--line)}.impHelp{font-size:12px;color:var(--muted);margin:4px 0 11px}.impGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.imp{min-height:48px;border:1px solid var(--line);background:#fff;border-radius:13px;padding:7px 4px;font-size:11px;font-weight:900}.imp.sel{background:#111827;color:#fff;border-color:#111827}.quizFoot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:15px}.error{font-size:12px;color:#b42318;min-height:17px}.whyBtn{border:0;background:none;color:var(--violet);font-size:12px;font-weight:900;padding:4px}.feed{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid var(--line);margin-top:18px;padding-top:13px}.feedBtns{display:flex;gap:6px}.miniBtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;font-size:11px}.precision{background:linear-gradient(145deg,#f7f6ff,#fff);border:1px solid #dddafe;border-radius:17px;padding:13px 14px;margin-bottom:14px;color:#5148c8;font-size:12px;line-height:1.5}
-/* profile */.profileTop{margin-top:40px}.resultLabel{font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.resultTitle{font-size:clamp(43px,7vw,74px);letter-spacing:-.065em;line-height:.95;margin:9px 0}.resultDesc{max-width:830px;color:#475467;line-height:1.6}.spectrum{margin:28px 0 8px}.sbar{height:13px;border-radius:999px;position:relative;background:linear-gradient(90deg,var(--left),#ed99a4 33%,#d0d5dd 50%,#86b1e4 67%,var(--right))}.sdot{position:absolute;top:50%;width:23px;height:23px;border-radius:50%;background:#fff;border:5px solid #101828;transform:translate(-50%,-50%);box-shadow:0 5px 15px rgba(0,0,0,.2);transition:left .55s}.slab{display:flex;justify-content:space-between;font-size:12px;font-weight:850;color:var(--muted);margin-top:8px}.quality{display:flex;align-items:center;gap:8px;margin-top:14px}.qualityDot{width:9px;height:9px;border-radius:50%;background:var(--green)}.axis{padding:19px}.axisHead{display:flex;justify-content:space-between;gap:12px}.track{height:9px;background:#eef1f5;border-radius:99px;overflow:hidden;margin-top:10px}.track span{height:100%;display:block;background:linear-gradient(90deg,#7b75ff,#4f87e8)}.poles{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#98a2b3;font-weight:750;margin-top:8px}.poles span:last-child{text-align:right}.priority{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-top:1px solid var(--line)}.priority:first-child{border-top:0}.impVal{color:var(--violet);font-weight:900;font-size:12px;white-space:nowrap}.partyTools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px}.filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-size:12px;font-weight:850}.filter.on{background:#111827;color:#fff}.partySearch{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:12px}.partyCard{min-height:330px;display:flex;flex-direction:column}.tag{display:inline-flex;padding:6px 9px;border-radius:999px;background:#f2f4f7;color:#475467;font-size:11px;font-weight:900}.partyName{font-size:23px;font-weight:950;letter-spacing:-.035em;margin:8px 0}.partyStatus{font-size:11px;color:#667085;font-weight:850}.focus{flex:1;margin-top:13px;padding:12px;background:#f8fafc;border:1px solid var(--line);border-radius:14px;font-size:12px;line-height:1.5}.focusItem{padding:9px 0;border-top:1px solid var(--line)}.focusItem:first-child{border-top:0}.src{text-decoration:underline;text-underline-offset:3px;font-size:12px;font-weight:900}.noRank{padding:12px 13px;margin-top:12px;border:1px solid var(--line);background:#f8fafc;border-radius:15px;color:#475467;font-size:12px;line-height:1.5}.compareGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.compare{padding:17px}.compare textarea{width:100%;min-height:100px}.topicStrip{display:flex;gap:7px;overflow:auto;padding-bottom:4px}.topicPick{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 12px;font-size:11px;font-weight:900}.topicPick.on{background:#111827;color:#fff}.selectedParties{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.selParty{border:1px solid var(--violet);background:var(--soft);color:#3f3aa8;border-radius:999px;padding:8px 10px;font-size:11px;font-weight:900}.detailBox{padding:15px;background:#f8fafc;border:1px solid var(--line);border-radius:15px;line-height:1.5;font-size:13px}
-/* results2 */.stat{padding:19px}.statNum{font-size:31px;font-weight:950;letter-spacing:-.05em;margin-top:7px}.compareTable{display:grid;gap:0}.row{display:grid;grid-template-columns:180px 1fr 1fr;gap:14px;padding:13px 0;border-top:1px solid var(--line);font-size:13px}.row:first-child{border-top:0}.row b{font-weight:900}
-/* modal */.modal{position:fixed;inset:0;background:rgba(16,24,40,.48);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:100}.modal.show{display:flex}.modalBox{width:min(780px,100%);max-height:88vh;overflow:auto;background:#fff;border-radius:25px 25px 14px 14px;padding:23px}.modalHead{display:flex;justify-content:space-between;gap:12px}.close{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:12px;font-size:20px}.toast{position:fixed;z-index:150;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#101828;color:#fff;border-radius:12px;padding:11px 15px;font-size:13px;font-weight:850;box-shadow:0 12px 30px rgba(16,24,40,.22);transition:.22s}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:980px){.g4{grid-template-columns:repeat(2,1fr)}.compareGrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:720px){.g4,.g3,.g2,.compareGrid{grid-template-columns:1fr}.hero{padding-top:40px}.hero h1{font-size:clamp(43px,13vw,64px)}.lead{font-size:17px}.card{padding:19px}.choiceGrid{grid-template-columns:1fr}.topicGrid{grid-template-columns:repeat(2,1fr)}.impGrid{grid-template-columns:repeat(3,1fr)}.impGrid .imp:last-child{grid-column:1/-1}.quiz{margin-top:20px}.qcard{padding:19px}.qtitle{font-size:24px}.quizFoot{flex-direction:column;align-items:stretch}.quizFoot .actions{display:grid;grid-template-columns:1fr 1.25fr}.quizFoot .btn{width:100%}.sectionHead{flex-direction:column;align-items:flex-start}.resumeRow{align-items:flex-start;flex-direction:column}.row{grid-template-columns:1fr}.partyCard{min-height:0}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
-.answerTitle{font-weight:950;margin:20px 0 5px}.answerHelp{font-size:12px;color:var(--muted);margin-bottom:9px}.answerScale{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.answerBtn{min-height:52px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:11px;font-weight:900;color:#344054;padding:8px 4px}.answerBtn.sel{background:#111827;color:#fff;border-color:#111827}.focusItem{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}.src{font-size:12px;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Votez bien ! — Comprendre où vous vous situez avant 2027</title>
+<meta name="description" content="Un test politique gratuit, neutre et sourcé pour comprendre vos propres positions avant l'élection présidentielle de 2027, et explorer les partis qui s'en rapprochent — sans jargon.">
+<meta name="theme-color" content="#6D4AFF">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a href="#main" class="skip-link">Aller au contenu</a>
+<div class="app">
 
-/* V5 — product UI */
-.appHero{position:relative;overflow:hidden;border-radius:32px;padding:30px;background:
-linear-gradient(135deg,#101828 0%,#171f35 55%,#283867 100%);color:#fff;box-shadow:0 24px 70px rgba(16,24,40,.18)}
-.appHero:before,.appHero:after{content:"";position:absolute;border-radius:999px;filter:blur(2px);opacity:.28;pointer-events:none}
-.appHero:before{width:260px;height:260px;right:-70px;top:-120px;background:#7f7cff}
-.appHero:after{width:220px;height:220px;left:-100px;bottom:-150px;background:#3d8fe7}
-.heroInner{position:relative;z-index:1;display:grid;grid-template-columns:1.5fr .8fr;gap:22px;align-items:center}
-.appHero .eyebrow{color:#b9b5ff}.appHero h1{max-width:720px;margin-bottom:14px}.appHero .lead{color:#d7dbe6;max-width:680px}
-.heroMock{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:18px;backdrop-filter:blur(10px)}
-.mockTitle{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:#cdd1df}
-.mockMain{font-size:31px;font-weight:950;letter-spacing:-.05em;margin:7px 0 15px}
-.mockSpectrum{height:10px;border-radius:999px;background:linear-gradient(90deg,#d4475b,#d0d5dd,#3478d4);position:relative}.mockDot{position:absolute;top:50%;left:38%;width:17px;height:17px;border-radius:50%;background:#fff;border:4px solid #111827;transform:translate(-50%,-50%)}
-.mockTags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.mockTag{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.1);font-size:10px;font-weight:800;color:#eef0f6}
-.homeProof{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.proof{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:800;color:#dce1ed}
-.sectionKpi{display:flex;gap:9px;flex-wrap:wrap}.kpi{padding:9px 12px;border:1px solid var(--line);border-radius:13px;background:#fff}.kpi b{display:block;font-size:18px;letter-spacing:-.03em}.kpi span{font-size:10px;color:var(--muted);font-weight:800}
-.profileShell{display:grid;grid-template-columns:1.35fr .65fr;gap:15px;align-items:stretch}
-.profileMain{min-height:390px;display:flex;flex-direction:column;justify-content:space-between}
-.passport{position:relative;overflow:hidden;background:linear-gradient(145deg,#111827,#242f4d);color:#fff;min-height:390px;padding:22px;border-radius:24px;box-shadow:var(--shadow)}
-.passport:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-110px;top:-120px;background:#6964ff;opacity:.25}
-.passportTop{display:flex;justify-content:space-between;align-items:center;position:relative}.passportBrand{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:#d4d7e3}.passportType{font-size:10px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.1);font-weight:800}
-.passportName{position:relative;font-size:35px;font-weight:950;letter-spacing:-.055em;margin-top:25px}.passportSub{position:relative;color:#cbd0dc;font-size:12px;line-height:1.5;max-width:340px}
-.passportCode{position:relative;margin-top:20px;display:flex;gap:7px;flex-wrap:wrap}.passportChip{padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.1);font-size:10px;font-weight:850}
-.radarCard{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:15px}.radarTitle{align-self:flex-start;font-size:12px;font-weight:900;color:#475467}.radarSvg{width:100%;max-width:330px;height:auto}.radarLegend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:#667085;justify-content:center}.radarLegend span{display:flex;gap:5px;align-items:center}.rDot{width:7px;height:7px;border-radius:50%;background:#625df5}
-.priorityHero{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}.priorityHighlight{padding:20px;border-radius:22px;background:linear-gradient(135deg,#f0efff,#fff);border:1px solid #dedcff}.priorityNum{font-size:52px;line-height:.9;font-weight:950;letter-spacing:-.07em;color:#625df5}.priorityListCompact{display:grid;gap:8px}.compactTopic{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:13px;background:#fff}.compactRank{width:24px;height:24px;border-radius:8px;background:#111827;color:#fff;display:grid;place-items:center;font-size:10px;font-weight:900}.compactTopic b{font-size:12px}.compactTopic span{margin-left:auto;font-size:10px;color:#625df5;font-weight:900}
-.partyShowcase{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.partyMini{padding:17px;min-height:210px;display:flex;flex-direction:column}.partyMiniTop{display:flex;align-items:center;gap:11px}.partyLogo{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:950;font-size:13px;box-shadow:0 8px 18px rgba(16,24,40,.15)}.partyMiniName{font-weight:950;letter-spacing:-.03em}.partyMiniFamily{font-size:10px;color:var(--muted);font-weight:800;margin-top:2px}.miniReason{margin-top:12px;font-size:12px;color:#475467;line-height:1.45;flex:1}.miniTags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.miniTags span{padding:5px 7px;border-radius:999px;background:#f2f4f7;font-size:9px;font-weight:900;color:#475467}
-.sourcePill{display:inline-flex;gap:6px;align-items:center;font-size:10px;font-weight:850;color:#475467;padding:6px 8px;border-radius:999px;background:#f8fafc;border:1px solid var(--line)}
-.detailDrawer{position:fixed;inset:0;background:rgba(16,24,40,.45);backdrop-filter:blur(7px);z-index:90;display:none;align-items:flex-end}.detailDrawer.show{display:flex}.drawerBox{width:min(820px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:25px 25px 0 0;padding:22px}.drawerTop{display:flex;justify-content:space-between;gap:10px}
-.shareCardPreview{background:linear-gradient(145deg,#111827,#2a3553);color:#fff;border-radius:22px;padding:20px;position:relative;overflow:hidden}.shareCardPreview:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-100px;bottom:-120px;background:#625df5;opacity:.22}.shareSmall{position:relative;font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:#cbd0dc}.shareBig{position:relative;font-size:38px;font-weight:950;letter-spacing:-.06em;margin-top:13px}.shareCopy{position:relative;color:#d6dbe5;font-size:12px;line-height:1.5;max-width:520px;margin-top:8px}
-.bottomNav{display:none}
-@media(max-width:880px){.heroInner,.profileShell,.priorityHero{grid-template-columns:1fr}.partyShowcase{grid-template-columns:1fr 1fr}.radarCard{min-height:340px}}
-@media(max-width:620px){.shell{padding-bottom:90px}.appHero{padding:21px;border-radius:25px}.heroInner{grid-template-columns:1fr}.heroMock{display:none}.partyShowcase{grid-template-columns:1fr}.profileShell{grid-template-columns:1fr}.passport,.profileMain{min-height:330px}.passportName{font-size:31px}.bottomNav{position:fixed;display:flex;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));justify-content:space-around}.bottomNav button{border:0;background:none;color:#667085;font-size:10px;font-weight:900;display:flex;flex-direction:column;align-items:center;gap:4px;padding:5px}.bottomNav button.active{color:#625df5}.bottomNav i{font-style:normal;font-size:18px}.kpi{flex:1;min-width:120px}}
+  <header class="topbar">
+    <button class="brand" data-nav="home" aria-label="Votez bien ! — retour à l'accueil">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="none" stroke="#171B26" stroke-width="2.5"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6" stroke="#171B26" stroke-width="2.5" stroke-linecap="round"/><path d="M24 24 L32 15" stroke="#9C6B2E" stroke-width="3" stroke-linecap="round"/><circle cx="24" cy="24" r="3.2" fill="#171B26"/></svg>
+      Votez bien !
+    </button>
+    <nav aria-label="Navigation principale">
+      <button class="navlink hide-mobile" data-nav="results" id="navResults" disabled>Mon profil</button>
+      <button class="navlink hide-mobile" data-nav="parties" id="navParties" disabled>Les partis</button>
+      <button class="navlink" data-nav="method">Méthode</button>
+    </nav>
+  </header>
 
-.partyLogo{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;color:#fff;font-weight:950;font-size:13px;box-shadow:0 8px 18px rgba(16,24,40,.15);flex:0 0 48px}.partyMiniTop{display:flex;align-items:center;gap:11px}.partyMiniName{font-weight:950;letter-spacing:-.03em}.partyMiniFamily{font-size:10px;color:#667085;font-weight:800;margin-top:2px}.partyMini{min-height:210px;display:flex;flex-direction:column}.miniReason{margin-top:12px;font-size:12px;color:#475467;line-height:1.45;flex:1}.miniTags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}.miniTags span{padding:5px 7px;border-radius:999px;background:#f2f4f7;font-size:9px;font-weight:900;color:#475467}.partyCard{min-height:300px}.partyName{font-size:22px;font-weight:950;letter-spacing:-.04em;margin:8px 0 2px}.partyStatus{font-size:11px;color:#667085;font-weight:800}.focus{margin-top:12px;padding:11px;background:#f8fafc;border:1px solid #e4e7ec;border-radius:13px;font-size:12px;line-height:1.45}.focusItem{padding:5px 0}.focusItem+ .focusItem{border-top:1px solid #eaecf0;margin-top:5px;padding-top:8px}.selectedParties{display:flex;gap:7px;flex-wrap:wrap}.selParty{padding:7px 9px;border-radius:999px;background:#eef0ff;color:#514cd2;font-size:11px;font-weight:900}.src{font-size:11px;font-weight:900;text-decoration:underline;text-underline-offset:3px}.detailBox{padding:12px;background:#f8fafc;border:1px solid #e4e7ec;border-radius:13px;color:#667085;font-size:12px}.feed{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:16px;padding-top:13px;border-top:1px solid #e4e7ec}.feedBtns{display:flex;gap:6px}.miniBtn{border:1px solid #e4e7ec;background:#fff;border-radius:10px;padding:6px 8px;font-size:10px;font-weight:850}.quality{display:flex;align-items:center;gap:8px}.qualityDot{width:8px;height:8px;border-radius:50%;background:#98a2b3}.slab{display:flex;justify-content:space-between;color:#d7dbe6;font-size:11px;font-weight:800;margin-top:7px}.slab span:first-child{color:#f0c2c8}.slab span:last-child{color:#c2dafa}
-</style></head><body>
-<header class="top"><div class="topIn"><a class="brand" href="#" onclick="home();return false"><span class="mark">✓</span>Votez bien !</a><div class="navBtns"><button class="navBtn" onclick="modal('method')" aria-label="Méthode">?</button><button class="navBtn" onclick="resetAll()" aria-label="Réinitialiser">↻</button></div></div></header>
-<main class="shell">
-<section id="home" class="screen active">
-  <div class="hero">
-    <div class="appHero">
-      <div class="heroInner">
-        <div>
-          <div class="eyebrow">Votre boussole politique</div>
-          <h1>Comprendre avant de choisir.</h1>
-          <p class="lead">Un test pensé pour ceux qui ne connaissent pas tous les programmes. Répondez simplement, découvrez votre profil, puis explorez les partis et leurs sources.</p>
-          <div class="actions">
-            <button class="btn primary" onclick="start(1)">Commencer <span>→</span></button>
-            <button class="btn secondary" onclick="modal('method')">Voir la méthode</button>
-          </div>
-          <div class="homeProof">
-            <span class="proof">✓ 18 questions courtes</span>
-            <span class="proof">✓ Résultat expliqué</span>
-            <span class="proof">✓ Sources officielles</span>
-            <span class="proof">✓ Réponses locales</span>
+  <main id="main">
+    <div class="wrap">
+
+      <!-- ============ ACCUEIL ============ -->
+      <section class="screen" id="screen-home">
+        <div id="resumeBanner" class="resume-banner" hidden>
+          <p><strong>Un test est en cours.</strong> Vous pouvez reprendre là où vous en étiez.</p>
+          <div class="btn-row">
+            <button class="btn btn-primary btn-sm" id="btnResume">Reprendre</button>
+            <button class="btn btn-ghost btn-sm" id="btnRestart">Recommencer</button>
           </div>
         </div>
-        <div class="heroMock">
-          <div class="mockTitle">Aperçu de votre passeport</div>
-          <div class="mockMain">Centre-gauche</div>
-          <div class="mockSpectrum"><span class="mockDot"></span></div>
-          <div class="mockTags"><span class="mockTag">Économie · centre-gauche</span><span class="mockTag">Écologie · priorité forte</span><span class="mockTag">Europe · très favorable</span></div>
+
+        <div class="hero">
+          <div class="hero-text">
+            <p class="eyebrow-note">Présidentielle 2027 · gratuit, anonyme, sans compte</p>
+            <h1>Trouvez d’abord <span class="accent">votre position</span>. Regardez ensuite qui s’en approche.</h1>
+            <p class="lede">21 questions en langage simple, sur les grands sujets qui divisent la France aujourd’hui. Aucun jargon, aucune question piégée : à chaque fois, deux idées, et vous choisissez celle qui vous parle le plus — ou vous dites que vous ne savez pas.</p>
+            <div class="hero-actions btn-row">
+              <button class="btn btn-brass" id="btnStart">Commencer le test</button>
+              <button class="btn btn-ghost" data-nav="method">Voir la méthode</button>
+            </div>
+            <div class="trust-row">
+              <div><strong>21</strong>questions principales</div>
+              <div><strong>6</strong>grands thèmes politiques</div>
+              <div><strong>16</strong>partis comparés, sourcés</div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <svg class="compass-svg" viewBox="0 0 260 260" width="260" height="260">
+              <circle class="ring" cx="130" cy="130" r="110"/>
+              <circle class="ring" cx="130" cy="130" r="75"/>
+              <circle class="ring" cx="130" cy="130" r="40"/>
+              <g id="compassSpokes"></g>
+              <circle cx="130" cy="130" r="4.5" fill="#171B26"/>
+            </svg>
+          </div>
         </div>
-      </div>
+
+        <div class="how-it-works">
+          <h2>Comment ça marche</h2>
+          <div class="hiw-list">
+            <div class="hiw-item"><span class="hiw-num">1</span><div><h3>21 questions</h3><p>Deux propositions à chaque fois, une échelle en 5 positions, et une case « je ne sais pas » qui reste toujours disponible — aucune réponse n’est forcée.</p></div></div>
+            <div class="hiw-item"><span class="hiw-num">2</span><div><h3>8 questions de précision</h3><p>Un premier aperçu provisoire, puis l’application cible les thèmes où votre position reste incertaine et, si plusieurs partis se disputent la tête, ceux où ils divergent le plus — jamais au hasard.</p></div></div>
+            <div class="hiw-item"><span class="hiw-num">3</span><div><h3>Votre profil</h3><p>Une orientation générale, le détail sur 6 thèmes avec leur niveau de clarté, et vos priorités personnelles.</p></div></div>
+            <div class="hiw-item"><span class="hiw-num">4</span><div><h3>Vos partis les plus proches</h3><p>Un pourcentage de proximité par parti, thème par thème, expliqué et sourcé — jamais un chiffre sans détail derrière.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ QUIZ ============ -->
+      <section class="screen" id="screen-quiz">
+        <div id="phaseChipWrap"></div>
+        <div class="quiz-head">
+          <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+          <span class="progress-label" id="progressLabel">1 / 21</span>
+        </div>
+        <div class="q-card">
+          <p class="q-topic" id="qTopic"></p>
+          <h2 id="qDim"></h2>
+          <button class="q-why-toggle" id="qWhyToggle" type="button">Pourquoi cette question ?</button>
+          <p class="q-why" id="qWhy"></p>
+
+          <div class="propositions">
+            <div class="prop"><span class="letter">Proposition A</span><p id="propA"></p><p class="clarify" id="clarifyA" hidden></p></div>
+            <div class="prop"><span class="letter">Proposition B</span><p id="propB"></p><p class="clarify" id="clarifyB" hidden></p></div>
+          </div>
+          <p class="plain-box" id="plainBox" hidden><strong>En clair :</strong> <span id="plainText"></span></p>
+
+          <div class="scale" id="scaleButtons" role="group" aria-label="Votre réponse"></div>
+          <div class="dk-row"><button class="dk-btn" id="dkBtn" type="button">Je ne sais pas / je n’ai pas assez d’informations</button></div>
+
+          <div class="importance-row">
+            <span>À quel point ce sujet compte-t-il pour vous ?</span>
+            <div class="imp-choices" id="impChoices" role="group" aria-label="Importance du sujet"></div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost" id="btnBack">Précédent</button>
+          <button class="btn btn-primary" id="btnNext" disabled>Suivant</button>
+        </div>
+      </section>
+
+      <!-- ============ PALIER (fin des 21 questions) ============ -->
+      <section class="screen" id="screen-checkpoint">
+        <div id="checkpointContent"></div>
+      </section>
+
+      <!-- ============ RÉSULTATS ============ -->
+      <section class="screen" id="screen-results">
+        <div id="resultsContent"></div>
+      </section>
+
+      <!-- ============ PARTIS ============ -->
+      <section class="screen" id="screen-parties">
+        <h1>Les partis à explorer</h1>
+        <p class="lede">Classés du plus proche au moins proche de vos réponses. Le pourcentage mesure la proximité entre vos positions et celles du parti sur chaque thème, en donnant plus de poids à ce qui compte le plus pour vous — jamais un thème auquel vous n’avez pas répondu. Ouvrez une fiche pour voir le détail, thème par thème, avec les points communs et les différences.</p>
+        <div class="filter-row" id="familyFilters"></div>
+        <div class="party-grid" id="partyGrid"></div>
+        <div class="btn-row" style="margin-top:1.8rem">
+          <button class="btn btn-ghost" data-nav="compare">Comparer jusqu’à 3 partis →</button>
+        </div>
+      </section>
+
+      <!-- ============ COMPARER ============ -->
+      <section class="screen" id="screen-compare">
+        <h1>Comparer des partis</h1>
+        <p class="lede">Choisissez jusqu’à 3 formations depuis l’écran « Les partis » pour les mettre côte à côte.</p>
+        <div id="compareContent"></div>
+      </section>
+
+      <!-- ============ MÉTHODE ============ -->
+      <section class="screen" id="screen-method">
+        <h1>Méthode</h1>
+        <p class="lede">Ce que mesure vraiment l’application, comment le score est calculé, et ce que vous devez garder à l’esprit en le lisant.</p>
+
+        <div class="method-section">
+          <h2>Ce n’est ni scientifique, ni infaillible</h2>
+          <p>Ce test simplifie des sujets complexes en 21 questions principales suivies de 8 questions de précision, toutes fermées. Il donne une <strong>indication</strong> de vos tendances sur 6 grands thèmes (que l’application appelle des « dimensions »), pas une vérité psychologique ni un verdict définitif sur qui vous êtes. Deux personnes qui partagent vos réponses peuvent avoir des raisons très différentes de les avoir choisies.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Position ≠ importance</h2>
+          <p>Chaque question mesure deux choses séparément : <strong>ce que vous pensez</strong> d’un sujet, et <strong>à quel point il compte</strong> pour vous. L’importance ne modifie jamais votre position sur l’échelle gauche-droite : elle sert uniquement à choisir les questions de précision et à mettre en avant vos priorités dans l’exploration des partis.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>6 dimensions, une seule convention de signe</h2>
+          <p>Chaque dimension va d’un pôle à l’autre ; un score négatif rapproche du premier pôle, un score positif du second. C’est la même convention partout : calcul, courbe, couleurs, textes.</p>
+          <ul id="methodDims"></ul>
+          <p>Sur les dimensions Autorité, Europe et Immigration, l’axe mesuré ne recoupe pas toujours le clivage gauche-droite classique : le souverainisme, par exemple, existe à gauche comme à droite, pour des raisons différentes. Regardez le détail par dimension plutôt que la seule étiquette globale.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Incertitude : pourquoi certaines dimensions restent floues</h2>
+          <p>Pour chaque dimension, l’application affiche un niveau de clarté. Il diminue quand vous répondez « je ne sais pas », quand vos réponses se contredisent au sein d’une même dimension, ou — plus modérément — quand votre position moyenne reste proche du centre avec peu de questions pour la confirmer. Un profil peut rester <strong>volontairement non déterminé</strong> si vous avez répondu « je ne sais pas » à presque tout : l’application ne fabrique jamais une orientation à partir de réponses absentes.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Les 8 questions de précision</h2>
+          <p>Après les 21 questions principales, l’application en choisit 8 de plus parmi une banque de 36 questions écrites à l’avance (jamais générées à la volée). Elle privilégie les thèmes où votre position reste floue ou compte beaucoup pour vous et, lorsque plusieurs partis se rapprochent de vous à peu près autant, les thèmes où ces partis diffèrent réellement. <strong>Les noms des partis restent cachés pendant ces questions</strong>, pour ne pas orienter vos réponses vers un résultat espéré.</p>
+          <p>Ce choix de questions ne garantit aucun écart final : si vos réponses sincères vous laissent à égalité entre deux partis, c’est le bon résultat, pas un échec à corriger.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Quand deux partis sont à égalité</h2>
+          <p>Si l’écart entre vos deux premiers partis est de 6 points ou moins, il est plus petit que la marge d’incertitude de ces estimations. L’application ne désigne alors pas de gagnant : elle affiche ce qui distingue réellement les deux partis, thème par thème, pour que vous tranchiez selon ce qui compte le plus pour vous.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Comparaison aux partis</h2>
+          <p>Les positions attribuées à chaque parti sont des <strong>estimations que nous avons construites nous-mêmes</strong>, à partir de leurs programmes et prises de position publiques à la date indiquée sur chaque fiche — ce ne sont pas des scores donnés par les partis eux-mêmes, et elles peuvent être discutées. Le pourcentage affiché mesure la proximité moyenne entre vos positions et celles d’un parti, thème par thème, en donnant plus de poids aux sujets qui comptent le plus pour vous — jamais un thème auquel vous n’avez pas répondu, qui n’est compté ni pour ni contre. Il n’est jamais affiché seul : la fiche de chaque parti détaille le calcul, avec les points communs et les différences, et renvoie vers le programme source.</p>
+          <p>Quand un parti n’a pas de position identifiable sur un thème (par exemple un parti centré sur un seul sujet), ce thème est <strong>exclu</strong> de sa comparaison au lieu d’être compté comme un « centre » : sans cette précaution, un parti sans position aurait paru proche de tous les profils centristes.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Partis retenus</h2>
+          <p>16 formations actives, de l’extrême gauche à l’extrême droite en passant par le bloc central, retenues pour leur présence institutionnelle (Assemblée, Sénat, Parlement européen) ou leur rôle déclaré dans la présidentielle de 2027. Existence et dénomination vérifiées début 2026 ; la liste officielle des partis agréés est tenue par la <a href="https://www.cnccfp.fr/" target="_blank" rel="noopener">CNCCFP</a> (Commission nationale des comptes de campagne et des financements politiques). Cette sélection n’est pas exhaustive et sera mise à jour à mesure que la campagne avance.</p>
+        </div>
+
+        <div class="method-section">
+          <h2>Vos réponses restent sur votre appareil</h2>
+          <p>Aucun compte, aucun serveur : vos réponses sont enregistrées uniquement dans le stockage local de votre navigateur, pour vous permettre de reprendre le test plus tard. Rien n’est transmis nulle part. Effacer les données du site ou vider le stockage de votre navigateur supprime définitivement votre progression.</p>
+        </div>
+      </section>
+
     </div>
-  </div>
+  </main>
 
-  <div class="section">
-    <div class="sectionHead">
-      <div><div class="eyebrow">Le parcours</div><h2>Une app qui ne vous abandonne pas après le quiz.</h2></div>
-      <div class="sectionKpi">
-        <div class="kpi"><b>6</b><span>dimensions</span></div>
-        <div class="kpi"><b>18</b><span>questions</span></div>
-        <div class="kpi"><b>2</b><span>niveaux de test</span></div>
-      </div>
-    </div>
-  </div>
+  <footer>
+    Votez bien ! — outil indépendant d’aide à la compréhension politique. Ne remplace pas la lecture des programmes officiels.
+  </footer>
+</div>
 
-  <div class="grid g3">
-    <article class="card tile"><div class="icon">01</div><h3>Votre passeport politique</h3><p class="muted">Un résultat visuel à plusieurs dimensions, compréhensible en quelques secondes.</p></article>
-    <article class="card tile"><div class="icon">02</div><h3>Vos priorités</h3><p class="muted">Vous dites ce qui compte vraiment pour vous. Cela personnalise ensuite l’exploration des partis.</p></article>
-    <article class="card tile"><div class="icon">03</div><h3>Les sources en un clic</h3><p class="muted">Chaque fiche renvoie directement vers les textes officiels plutôt que de demander de croire l’application.</p></article>
-  </div>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="partyDrawer" aria-hidden="true"></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <div class="section">
-    <div class="sectionHead"><div><div class="eyebrow">Conçu pour les débutants</div><h2>Pas de jargon politique.</h2></div><p>Chaque question explique simplement ce qu’elle mesure. Vous pouvez choisir « entre les deux » ou dire que vous ne savez pas.</p></div>
-    <div class="notice"><strong>Notre promesse :</strong> vous aider à comprendre vos propres réponses. Pas de « meilleur parti », pas de consigne de vote et pas de faux pourcentage de compatibilité scientifique.</div>
-  </div>
-
-  <div class="section">
-    <div class="sectionHead"><div><div class="eyebrow">Après le premier résultat</div><h2>Le meilleur endroit pour apprendre.</h2></div><p>Le profil ouvre une exploration des thèmes et des formations. Vous pouvez choisir vous-même les partis à comparer.</p></div>
-    <div class="card shareCardPreview"><div class="shareSmall">Votez bien !</div><div class="shareBig">Votre profil, pas une étiquette.</div><div class="shareCopy">Découvrez vos grandes dimensions politiques, vos priorités et les textes officiels à consulter.</div></div>
-  </div>
-  <div id="resumeBox" class="card" style="display:none;margin-top:16px"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><div class="kicker">Reprendre</div><b id="resumeText">Votre progression est sauvegardée sur cet appareil.</b></div><button class="btn soft" onclick="resume()">Reprendre →</button></div></div>
-<div class="footer">Votez bien ! · prototype V5 · les réponses restent sur l’appareil dans cette version.</div>
-</section>
-
-<section id="onboard" class="screen"><div class="hero"><div class="eyebrow">Avant de commencer</div><h2>Un test rapide, puis une précision ciblée.</h2><p class="lead">Cette étape ne sert pas à calculer votre profil. Elle permet seulement d’adapter la quantité d’explication et de mettre en avant les sujets qui vous intéressent.</p></div><div class="card"><div class="steps"><span class="step on"></span><span class="step"></span></div><h3>Quel mode préférez-vous ?</h3><div class="choiceGrid" id="modes"><button class="bigChoice sel" onclick="mode='simple';this.parentNode.querySelectorAll('.bigChoice').forEach(x=>x.classList.remove('sel'));this.classList.add('sel')">Rapide<br><span class="muted">Questions courtes, explications minimales.</span></button><button class="bigChoice" onclick="mode='explore';this.parentNode.querySelectorAll('.bigChoice').forEach(x=>x.classList.remove('sel'));this.classList.add('sel')">Comprendre<br><span class="muted">Une explication courte sur chaque dimension.</span></button></div><div class="section" style="margin-top:28px"><h3>Quels sujets vous intéressent déjà ? <span class="muted" style="font-size:12px">(jusqu’à 5)</span></h3><div class="topicGrid" id="onboardTopics"></div></div><div class="actions"><button class="btn primary" onclick="finishOnboard()">C’est parti →</button></div></div></section>
-
-<section id="quiz" class="screen"><div class="quiz"><div class="quizTop"><div class="pills"><span class="pill" id="testPill"></span><span class="pill" id="countPill"></span></div><button class="btn ghost" onclick="quitQuiz()">Quitter</button></div><div class="progressRow"><div class="progress"><span id="progress" style="width:4%"></span></div><div class="pct" id="pct">4%</div></div><div id="adaptiveBanner" class="precision" style="display:none"></div><div class="card qcard" id="qcard"><div class="pills"><span class="pill" id="axisPill"></span><span class="pill" id="typePill"></span></div><h2 class="qtitle" id="qtitle"></h2><div id="simpleExplain" class="shortExplain" style="margin-bottom:14px"></div><div class="choices" id="choices"></div><button id="noneChoice" class="choice unknown" onclick="answer('none')"><span class="letter">—</span><span class="choiceText">Aucune des deux / les deux me correspondent</span><span class="check"></span></button><button id="dontKnow" class="choice unknown" onclick="answer('dk')"><span class="letter">?</span><span class="choiceText">Je ne sais pas assez pour me prononcer</span><span class="check"></span></button><div class="importance"><b>Quelle importance ce sujet a-t-il pour vous ?</b><div class="impHelp">Cela mesure la saillance du sujet ; cela ne modifie pas le contenu de votre opinion.</div><div class="impGrid" id="imps"></div></div><div class="helpRow"><button class="whyBtn" onclick="modal('question')">Pourquoi cette question ?</button><span class="error" id="error"></span></div><div class="quizFoot"><button class="btn secondary" onclick="back()" id="back">← Précédent</button><div class="actions" style="margin:0"><button class="btn primary" onclick="next()" id="next">Suivant →</button></div></div><div class="feed"><span class="muted" style="font-size:11px">Question peu claire ? Aidez à améliorer le test.</span><div class="feedBtns"><button class="miniBtn" onclick="feedback('clear')">✓ Claire</button><button class="miniBtn" onclick="feedback('unclear')">! À revoir</button></div></div></div></div></section>
-
-<section id="profile" class="screen">
-  <div class="hero profileTop">
-    <div class="eyebrow">Votre passeport politique</div>
-    <h2>Voici comment vous vous situez.</h2>
-    <p class="lead">Le curseur gauche-centre-droite résume. Le portrait ci-dessous montre où vos réponses se situent réellement.</p>
-  </div>
-
-  <div class="profileShell">
-    <div class="passport">
-      <div class="passportTop"><span class="passportBrand">VOTEZ BIEN ! · PROFIL</span><span class="passportType">TEST 1</span></div>
-      <div class="passportName" id="label"></div>
-      <div class="passportSub" id="desc"></div>
-      <div class="spectrum" style="margin-top:28px"><div class="sbar"><span class="sdot" id="dot"></span></div><div class="slab"><span>Gauche</span><span>Centre</span><span>Droite</span></div></div>
-      <div class="passportCode" id="passportChips"></div>
-      <div class="actions"><button class="btn secondary" onclick="share()">Partager mon profil</button><button class="btn soft" onclick="downloadShareCard()">Image →</button></div>
-    </div>
-    <div class="card radarCard">
-      <div class="radarTitle">Votre profil à 6 dimensions</div>
-      <svg id="radar" class="radarSvg" viewBox="0 0 320 320" aria-label="Profil à six dimensions"></svg>
-      <div class="radarLegend"><span><i class="rDot"></i>Votre position</span><span>Plus loin du centre = position plus nette</span></div>
-    </div>
-  </div>
-
-  <div class="quality" style="margin:14px 0 0"><span class="qualityDot"></span><span id="qualityText" class="muted" style="font-size:12px"></span></div>
-
-  <div class="section"><div class="sectionHead"><div><div class="eyebrow">Lecture rapide</div><h2>Votre profil en un coup d’œil.</h2></div></div>
-    <div class="grid g2" id="axes"></div>
-  </div>
-
-  <div class="section"><div class="sectionHead"><div><div class="eyebrow">Vos priorités</div><h2>Les sujets qui comptent vraiment.</h2></div><p>L’importance ne change pas votre position idéologique. Elle sert à personnaliser la suite et à faire ressortir les sujets auxquels vous tenez le plus.</p></div>
-    <div class="priorityHero">
-      <div class="priorityHighlight"><div class="kicker">Votre priorité n°1</div><div class="priorityNum" id="priorityMain">—</div><p class="muted" id="priorityMainText"></p></div>
-      <div class="card" id="priorities"></div>
-    </div>
-  </div>
-
-  <div class="section"><div class="sectionHead"><div><div class="eyebrow">À explorer en premier</div><h2>Des formations qui abordent vos thèmes.</h2></div><p>Ordre d’affichage neutre : ce ne sont pas des recommandations. Ouvrez les fiches, regardez les thèmes, puis vérifiez les programmes.</p></div>
-    <div class="partyShowcase" id="partyShowcase"></div>
-  </div>
-
-  <div class="section"><div class="sectionHead"><div><div class="eyebrow">Toutes les formations</div><h2>Explorer sans classement.</h2></div><p>Recherche, familles politiques et liens directs vers les textes officiels.</p></div>
-    <div class="partyTools" id="filters"></div>
-    <input class="partySearch" id="search" placeholder="Rechercher une formation…" oninput="renderParties()">
-    <div class="grid g2" id="parties"></div>
-    <div class="notice" style="margin-top:12px"><strong>Transparence :</strong> une carte ne dit jamais « votez pour X ». Elle vous permet de vérifier les thèmes et les sources par vous-même.</div>
-  </div>
-
-  <div class="section"><div class="sectionHead"><div><div class="eyebrow">Votre choix</div><h2>Comparer vous-même.</h2></div><p>Sélectionnez jusqu’à trois formations et comparez-les sur un même thème.</p></div>
-    <div class="card"><div class="selectedParties" id="selectedParties"></div><div class="topicStrip" id="compareTopics"></div><div id="compareResult" style="margin-top:13px"></div></div>
-  </div>
-
-  <div class="section"><div class="card"><div class="sectionHead" style="margin:0"><div><div class="eyebrow">Étape suivante</div><h2>Passer aux propositions concrètes.</h2><p>12 questions sur les grandes décisions de politique publique, sans jargon.</p></div><button class="btn primary" onclick="start(2)">Faire le test 2 →</button></div></div></div>
-</section>
-
-<section id="priorities" class="screen"><div class="hero"><div class="eyebrow">Carte de priorités</div><h2>Ce qui compte le plus pour vous.</h2><p class="lead">L’importance du sujet et votre position sont conservées séparément. C’est essentiel pour éviter de confondre « sujet important » et « opinion tranchée ».</p></div><div class="card" id="priorityBig"></div><div class="section"><div class="sectionHead"><div><div class="eyebrow">Explorer par thème</div><h2>Voir les positions officielles.</h2></div></div><div class="topicStrip" id="topicBtns"></div><div class="compareGrid" id="comparison" style="margin-top:13px"></div></div><div class="section"><div class="card"><button class="btn secondary" onclick="show('profile')">← Retour au profil</button></div></div></section>
-
-<section id="results2" class="screen"><div class="hero"><div class="eyebrow">Test 2 · Propositions</div><h2>Vos positions concrètes.</h2><p class="lead">Cette étape est conçue pour les personnes qui ne connaissent pas les programmes : chaque proposition est courte, avec « aucune des deux » et une importance séparée.</p></div><div class="grid g3" id="stats2"></div><div class="section"><div class="sectionHead"><div><div class="eyebrow">Détail</div><h2>Sujet par sujet.</h2></div></div><div class="card" id="details2"></div></div><div class="section"><div class="card"><div class="notice"><b>Important :</b> les candidats officiels n’étant pas encore définitivement arrêtés, le test 2 n’invente pas de positions de candidats. La comparaison détaillée sera activée quand une source politique versionnée sera disponible pour chaque proposition.</div><div class="actions"><button class="btn secondary" onclick="show('profile')">← Retour au profil</button><button class="btn primary" onclick="start(2)">Modifier mes réponses</button></div></div></div></section>
-</main>
-<div class="modal" id="modal"><div class="modalBox"><div class="modalHead"><div id="modalBody"></div><button class="close" onclick="closeModal()">×</button></div></div></div><div class="toast" id="toast"></div>
-<script>const TOPICS=['Économie','Impôts','Travail','Services publics','Retraites','Immigration','Sécurité','Écologie','Énergie','Europe','Institutions','Libertés','Agriculture','Éducation','Santé','Défense','Logement','Industrie','Pouvoir d’achat'];
-const CORE=[
-['Économie','eco','Impôts','Les personnes qui ont les revenus et patrimoines les plus élevés devraient davantage contribuer au financement collectif.','Il faut plutôt limiter les prélèvements, y compris pour les plus hauts revenus.','Cette question mesure votre préférence entre davantage de redistribution et des impôts plus limités.','Plus d’impôts ciblés sur les plus aisés.','Moins de prélèvements en général.'],
-['Économie','eco','Rôle de l’État','L’État doit intervenir davantage pour réduire les inégalités et orienter l’économie.','L’État doit surtout fixer les règles et laisser davantage de liberté aux entreprises et aux individus.','On cherche ici à savoir quelle place vous donnez à l’intervention publique dans l’économie.','Plus d’intervention publique.','Plus de liberté économique.'],
-['Économie','eco','Travail','Il faut mieux protéger les salariés, même si cela crée davantage de règles pour les entreprises.','Il faut donner davantage de souplesse aux entreprises pour faciliter les embauches et les adaptations.','Cette question mesure l’arbitrage entre protection des salariés et flexibilité.','Plus de protections.','Plus de souplesse.'],
-['Société','soc','Égalité','L’action publique doit aussi réduire les écarts réels entre groupes et territoires.','Elle doit surtout garantir les mêmes règles et les mêmes chances à chacun.','Il existe plusieurs façons de concevoir l’égalité : rapprocher les situations ou garantir surtout les mêmes règles.','Réduire davantage les écarts.','Garantir surtout les mêmes règles.'],
-['Société','soc','Modes de vie','Les lois doivent pouvoir évoluer assez rapidement quand les modes de vie changent.','Il vaut mieux préserver davantage les repères et traditions déjà établis.','Cette question mesure votre préférence pour le changement social ou la continuité.','Plus d’adaptation.','Plus de continuité.'],
-['Société','soc','Libertés','La liberté individuelle doit rester prioritaire, sauf nécessité forte.','Une règle commune peut primer lorsqu’elle protège la cohésion ou la sécurité.','Cette question mesure la place que vous donnez à l’autonomie individuelle par rapport aux règles communes.','Plus de poids aux libertés.','Plus de poids aux règles communes.'],
-['Autorité','auth','Sécurité','Pour réduire la délinquance, il faut davantage prévenir, accompagner et réinsérer.','Pour réduire la délinquance, il faut surtout renforcer les sanctions et l’autorité.','Cette question oppose deux priorités différentes en matière de sécurité.','Plus de prévention et de réinsertion.','Plus de fermeté et de sanctions.'],
-['Autorité','auth','Surveillance','Il faut limiter les pouvoirs de contrôle de l’État pour protéger les libertés.','Il faut accepter davantage de contrôles lorsqu’ils améliorent la sécurité.','Cette question mesure l’arbitrage entre libertés et pouvoirs de contrôle.','Plus de limites aux contrôles.','Plus de contrôles possibles.'],
-['Autorité','auth','Justice','Une bonne peine doit surtout réduire le risque de récidive tout en protégeant la société.','Une bonne peine doit surtout sanctionner l’acte et dissuader par la fermeté.','Cette question distingue deux priorités dans la politique pénale.','Réinsertion et protection.','Sanction et dissuasion.'],
-['Europe & souveraineté','open','Europe','Davantage de décisions devraient être prises au niveau européen quand un problème dépasse les frontières.','Davantage de décisions devraient rester au niveau français.','Cette question mesure la place que vous donnez à l’intégration européenne.','Plus de décisions communes.','Plus de décisions nationales.'],
-['Europe & souveraineté','open','Immigration','La France doit contrôler ses frontières tout en mettant davantage l’accent sur l’accueil et l’intégration.','La France doit réduire fortement les entrées et durcir les conditions d’accès au séjour.','Cette question mesure l’orientation générale souhaitée sur l’immigration.','Contrôle + intégration.','Réduction forte des entrées.'],
-['Europe & souveraineté','open','International','La France doit davantage agir avec ses partenaires, même si cela demande des compromis.','La France doit surtout pouvoir décider seule de ses priorités.','Cette question mesure le poids donné à la coopération par rapport à l’autonomie nationale.','Plus de coopération.','Plus d’autonomie nationale.'],
-['Écologie','ecology','Climat','Il faut accepter davantage de changements et de contraintes pour accélérer la transition écologique.','Il faut avancer plus progressivement pour limiter les contraintes économiques et sociales.','Cette question mesure le niveau de priorité donné à l’accélération écologique.','Transition plus rapide.','Transition plus progressive.'],
-['Écologie','ecology','Énergie','Il faut développer toutes les solutions bas-carbone utiles, avec un mix diversifié.','Il faut donner au nucléaire une place centrale dans la stratégie énergétique.','Cette question distingue deux priorités dans le choix du mix énergétique.','Mix bas-carbone diversifié.','Nucléaire au premier plan.'],
-['Écologie','ecology','Agriculture','Il faut accélérer la réduction des impacts environnementaux, même si les pratiques changent fortement.','Il faut d’abord préserver la production et le revenu agricoles en limitant les nouvelles contraintes.','Cette question mesure l’arbitrage entre transformation écologique et continuité productive.','Transition écologique plus rapide.','Production et revenu d’abord.'],
-['Démocratie','demo','Représentation','Les règles électorales devraient donner davantage de place aux différents courants politiques.','Il faut surtout favoriser des majorités stables capables de gouverner.','Cette question mesure l’arbitrage entre pluralisme et stabilité.','Plus de représentation.','Plus de stabilité.'],
-['Démocratie','demo','Référendum','Les citoyens devraient pouvoir décider plus directement sur certains grands sujets.','Les grandes décisions doivent surtout passer par les représentants élus.','Cette question mesure la place que vous donnez à la démocratie directe.','Plus de décisions citoyennes directes.','Plus de pouvoir aux élus.'],
-['Démocratie','demo','Décentralisation','Les collectivités devraient pouvoir adapter davantage les politiques à leur territoire.','L’État doit garder davantage de règles communes pour tout le pays.','Cette question mesure le degré de décentralisation souhaité.','Plus de décisions locales.','Plus de règles nationales communes.']
-];
-const PROPS=[
-['Retraites','Retraites','Pour financer les retraites, quelle proposition se rapproche le plus de votre opinion ?','Garder l’âge légal actuel et chercher d’autres financements.','Reculer progressivement l’âge de départ ou augmenter la durée de cotisation.','Cette question compare deux façons différentes de financer durablement les retraites.'],
-['Fiscalité','Impôts','Pour les plus hauts revenus et patrimoines, quelle proposition préférez-vous ?','Augmenter davantage leur contribution.','Limiter davantage les hausses d’impôts et de prélèvements.','Cette question permet de comparer deux orientations fiscales concrètes.'],
-['Immigration','Immigration','Quelle politique migratoire vous paraît la plus proche de votre opinion ?','Contrôler les frontières tout en favorisant l’intégration.','Réduire fortement les entrées et durcir les conditions de séjour.','Cette question rend plus concrète la grande question posée dans le test de valeurs.'],
-['Énergie','Énergie','Quelle politique énergétique vous paraît la plus proche de votre opinion ?','Accélérer renouvelables, sobriété et autres solutions bas-carbone.','Donner au nucléaire une place centrale.','Cette question permet de préciser votre opinion sur un sujet où plusieurs partis se distinguent fortement.'],
-['Écologie','Écologie','Pour accélérer la transition écologique, quelle proposition préférez-vous ?','Accepter davantage de règles et de changements de pratiques.','Avancer plus progressivement pour réduire les contraintes.','Cette question précise le niveau de contrainte que vous acceptez pour atteindre des objectifs écologiques.'],
-['Sécurité','Sécurité','Pour lutter contre la délinquance, quelle priorité préférez-vous ?','Prévention, justice et réinsertion.','Police, sanctions plus fortes et autorité.','Cette question précise ce que vous voulez mettre au premier plan dans la politique de sécurité.'],
-['Europe','Europe','Quelle évolution de l’Union européenne vous paraît préférable ?','Davantage de décisions et de moyens au niveau européen.','Garder davantage de décisions au niveau national.','Cette question précise jusqu’où vous souhaitez aller dans l’intégration européenne.'],
-['Services publics','Services publics','Pour la santé et l’école, quelle priorité préférez-vous ?','Augmenter les moyens publics même si cela coûte davantage.','Maîtriser davantage la dépense et rechercher plus d’efficacité.','Cette question permet de préciser votre rapport aux dépenses et aux services publics.'],
-['Travail','Travail','Pour l’emploi, quelle priorité préférez-vous ?','Renforcer les protections des salariés.','Assouplir davantage les règles pour faciliter les embauches.','Cette question transforme la grande question sur le travail en choix de politique publique.'],
-['Logement','Logement','Pour faciliter l’accès au logement, quelle proposition préférez-vous ?','Renforcer l’intervention publique, notamment le logement social et la régulation.','Faciliter surtout la construction et l’investissement privés.','Cette question permet de préciser le rôle que vous voulez donner à l’État dans le logement.'],
-['Éducation','Éducation','Pour réduire les difficultés scolaires, quelle priorité préférez-vous ?','Mettre davantage de moyens ciblés pour réduire les inégalités.','Renforcer d’abord les exigences, les savoirs fondamentaux et l’autorité.','Cette question permet de préciser votre vision de l’école.'],
-['Institutions','Institutions','Quelle réforme vous attire le plus ?','Davantage de proportionnelle et de démocratie directe.','Préserver surtout des institutions permettant des majorités stables.','Cette question précise votre préférence institutionnelle.']
-];
-const ADAPT={
- eco:[['Économie','eco','Aides publiques','Les aides publiques aux entreprises doivent être davantage conditionnées à des objectifs sociaux ou environnementaux.','Elles doivent surtout servir à investir, produire et créer des emplois.','Cette question départage deux usages possibles de l’argent public.']],
- soc:[['Société','soc','Laïcité','Dans l’espace public, il faut surtout protéger la liberté de conscience dans le respect de la loi.','Dans certains espaces collectifs, il faut renforcer davantage les règles communes.','Cette question précise votre rapport entre libertés individuelles et règles communes.']],
- auth:[['Autorité','auth','École','L’autorité à l’école doit surtout passer par le dialogue et l’accompagnement.','Elle doit surtout reposer sur des règles claires et des sanctions prévisibles.','Cette question précise votre vision de l’autorité.']],
- open:[['Europe & souveraineté','open','Défense','La France doit privilégier les alliances et cadres communs lorsqu’ils existent.','Elle doit pouvoir agir seule lorsque ses intérêts stratégiques l’exigent.','Cette question précise la place que vous donnez aux alliances.']],
- ecology:[['Écologie','ecology','Transports','Il faut investir davantage dans les transports collectifs et réduire la dépendance à la voiture.','Il faut surtout améliorer les routes et laisser les ménages choisir leurs déplacements.','Cette question précise votre vision de la transition des mobilités.']],
- demo:[['Démocratie','demo','Contre-pouvoirs','Il faut renforcer les contre-pouvoirs même si cela ralentit parfois les décisions.','Il faut surtout permettre à un gouvernement élu de décider efficacement.','Cette question précise l’arbitrage entre contrôle et efficacité.']]
-};
-const SPECIAL={
- 'Santé':['Services publics','public','Santé','L’État doit planifier davantage l’offre de soins et renforcer les moyens publics.','Il faut davantage de souplesse locale et de liberté d’organisation pour les professionnels et établissements.','Cette question précise votre vision de l’organisation des soins.'],
- 'Animal welfare':['Écologie','ecology','Animaux','Il faut renforcer fortement les règles de protection animale, même si certaines pratiques changent beaucoup.','Il faut privilégier des changements progressifs pour limiter les contraintes sur les activités concernées.','Cette question permet de faire apparaître une priorité que les grandes questions générales mesurent mal.'],
- 'Laïcité':['Société','soc','Laïcité','La liberté de conscience doit rester la priorité dès lors que la loi est respectée.','Certaines règles communes doivent être renforcées dans certains espaces collectifs.','Cette question précise votre rapport entre libertés et règles communes.'],
- 'Éducation':['Autorité','auth','Éducation','L’école doit surtout renforcer l’autonomie, le raisonnement et la coopération.','L’école doit surtout renforcer l’autorité, la discipline et la transmission de connaissances communes.','Cette question précise votre vision de l’école.'],
- 'Logement':['Économie','eco','Logement','L’État doit davantage réguler le logement et développer l’offre sociale.','Il faut surtout libérer la construction et l’investissement privés.','Cette question précise le rôle que vous voulez donner au marché et à l’État dans le logement.']
-};
-const PARTIES=[
-['La France insoumise','Gauche','https://lafranceinsoumise.fr/','https://programme.lafranceinsoumise.fr/category/programme/laec/','Programme L’Avenir en commun, édition 2025 ; candidature 2027 annoncée par le mouvement.',['Économie','Écologie','Institutions']],
-['Parti communiste français','Gauche','https://www.pcf.fr/','https://congres2026.pcf.fr/les_textes_soumis_aux_communistes','Congrès 2026 et textes programmatiques ; projet présidentiel 2027 à suivre.',['Économie','Services publics','Écologie']],
-['Parti socialiste','Gauche','https://parti-socialiste.fr/','https://projet-socialiste.fr/','Projet socialiste adopté en juin 2026 ; stratégie présidentielle 2027 en construction.',['Économie','Services publics','Écologie']],
-['Génération·s','Gauche écologiste','https://www.generation-s.fr/','https://www.generation-s.fr/notre-projet-de-societe/','Feuille de route et projet de société actualisés ; orientation présidentielle 2027 encore évolutive.',['Écologie','Égalité','Démocratie']],
-['Place publique','Gauche européenne','https://place-publique.eu/','https://place-publique.eu/pages/69jA2SKIG5udlNX7wI3dmc/le-projet','Projet structuré autour des combats écologique, social, démocratique, féministe et européen.',['Europe','Écologie','Démocratie']],
-['Les Écologistes','Écologie politique','https://lesecologistes.fr/','https://lesecologistes.fr/pages/6ImK65GKUnvibm33WGkjkj/projet-2027','Projet 2027 officiel, 557 mesures.',['Écologie','Justice sociale','Démocratie']],
-['Parti Radical de Gauche','Gauche républicaine','https://www.partiradicaldegauche.fr/','https://www.partiradicaldegauche.fr/','Site officiel ; textes programmatiques à surveiller pour 2027.',['Laïcité','Europe','Économie']],
-['Renaissance','Centre','https://parti-renaissance.fr/','https://parti-renaissance.fr/','Site officiel et priorités publiques ; programme présidentiel 2027 à suivre.',['Travail','Europe','Liberté']],
-['Mouvement Démocrate','Centre','https://www.mouvementdemocrate.fr/','https://www.mouvementdemocrate.fr/actualites','Site officiel et publications programmatiques.',['Europe','Démocratie','Services publics']],
-['Horizons','Centre-droit','https://horizonsleparti.fr/','https://horizonsleparti.fr/le-manifeste/','Manifeste officiel ; travaux programmatiques en vue des échéances nationales.',['Travail','Économie','Europe']],
-['Parti Radical','Centre','https://parti-radical.fr/','https://parti-radical.fr/nos-engagements/','Engagements thématiques et volonté annoncée de présenter un programme présidentiel.',['Économie','Europe','Libertés']],
-['Union des Démocrates et Indépendants','Centre-droit','https://www.parti-udi.fr/','https://www.parti-udi.fr/','Site officiel ; positions thématiques et européennes publiques.',['Europe','Économie','Démocratie']],
-['Les Républicains','Droite','https://republicains.fr/','https://republicains.fr/nos-propositions/','Propositions officielles actualisées ; préparation de 2027.',['Travail','Économie','Sécurité']],
-['Union des droites pour la République','Droite','https://www.udr.fr/','https://www.udr.fr/priorites','Priorités officielles publiées.',['Immigration','Économie','Sécurité']],
-['Rassemblement National','Droite nationale','https://rassemblementnational.fr/','https://rassemblementnational.fr/22-mesures','Textes officiels disponibles ; le programme 2027 peut encore évoluer.',['Immigration','Sécurité','Pouvoir d’achat']],
-['Reconquête','Droite nationale','https://www.parti-reconquete.fr/','https://www.parti-reconquete.fr/','Site officiel et programme public.',['Immigration','Identité','Économie']],
-['Debout la France','Droite souverainiste','https://www.debout-la-france.fr/','https://www.debout-la-france.fr/notre-projet/','Le parti indique actualiser actuellement son programme pour la présidentielle 2027.',['Souveraineté','Énergie','Immigration']],
-['Union populaire républicaine','Souverainiste','https://upr.fr/','https://upr.fr/notre-programme','Programme officiel, avec actualisation 2027 annoncée.',['Europe','Souveraineté','Institutions']],
-['Volt France','Européen progressiste','https://voltfrance.org/','https://voltfrance.org/politiques','Politiques publiques et programme européen.',['Europe','Écologie','Démocratie']]
-];
-const TOPIC_TO_DIM={"Économie":'eco',"Impôts":'eco',"Travail":'eco',"Services publics":'eco',"Retraites":'eco',"Logement":'eco',"Immigration":'open',"Sécurité":'auth',"Écologie":'ecology',"Énergie":'ecology',"Europe":'open',"Institutions":'demo',"Libertés":'soc',"Agriculture":'ecology',"Éducation":'auth',"Santé":'eco',"Défense":'open',"Laïcité":'soc',"Animaux":'ecology'};
-const DIM={eco:['Économie & redistribution','Intervention publique / redistribution','Liberté économique'],soc:['Société & libertés','Transformation sociale / libertés','Préservation / règles communes'],auth:['Autorité & justice','Prévention / réinsertion','Fermeté / contrôle'],open:['Europe & souveraineté','Coopération / Europe','Autonomie nationale'],ecology:['Écologie','Priorité écologique','Transition progressive'],demo:['Démocratie & institutions','Participation / pluralisme','Représentation / stabilité']};
-let type=1,i=0,ans=[],imp=[],order=[],adaptive=[],mode='simple',topics=[],profile=null,partyFilter='Tous',selected=[],compareTopic='Écologie';
-const store=t=>'vbpro5_'+t;
-function save(){localStorage.setItem(store(type),JSON.stringify({type,i,ans,imp,order,adaptive}));}
-function restore(t){try{const d=JSON.parse(localStorage.getItem(store(t))||'null');if(!d)return false;type=t;i=d.i||0;ans=d.ans||[];imp=d.imp||[];order=d.order||[];adaptive=d.adaptive||[];return true}catch{return false}}
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
-function home(){show('home')}
-
-function updateResumeV5(){const a=localStorage.getItem(store(1)),b=localStorage.getItem(store(2));const box=document.getElementById('resumeBox');if(!box)return;if(!(a||b)){box.classList.remove('show');return}box.classList.add('show');const x=b?JSON.parse(b):JSON.parse(a);const total=x.type===1?CORE.length:PROPS.length;document.getElementById('resumeText').textContent=`Reprendre le test ${x.type} · question ${Math.min((x.i||0)+1,total)} sur ${total}`;}
-
-function init(){document.getElementById('onboardTopics').innerHTML=TOPICS.map(t=>`<button class="topicBtn" onclick="toggleTopic(this,'${t.replace(/'/g,"\\'")}')">${t}</button>`).join('')}
-function start(t){if(t===1){show('onboard');return}begin(2)}
-function finishOnboard(){localStorage.setItem(store('prefs'),JSON.stringify({mode,topics}));begin(1)}
-function toggleTopic(el,t){if(topics.includes(t)){topics=topics.filter(x=>x!==t);el.classList.remove('sel')}else if(topics.length<5){topics.push(t);el.classList.add('sel')}else toast('Choisissez au maximum 5 sujets')}
-function begin(t){type=t;i=0;const n=t===1?CORE.length:PROPS.length;ans=Array(n).fill(null);imp=Array(n).fill(null);order=Array.from({length:n},()=>Math.random()<.5?[0,1]:[1,0]);adaptive=[];save();renderQ();show('quiz')}
-function resume(){if(restore(2)||restore(1)){renderQ();show('quiz')}}
-function currentData(){if(type===2)return PROPS.map(x=>({axis:x[0],topic:x[1],q:x[2],a:x[3],b:x[4],why:x[5],adaptive:false}));const core=CORE.map(x=>({axis:x[0],dim:x[1],topic:x[2],a:x[3],b:x[4],why:x[5],helpA:x[6],helpB:x[7],adaptive:false}));return core.concat(adaptive)}
-function buildAdaptive(){if(adaptive.length)return;const ds=CORE;const score={};Object.keys(DIM).forEach(k=>score[k]={vals:[],imps:[]});ds.forEach((q,k)=>{if(typeof ans[k]==='number')score[q[1]].vals.push(ans[k]);if(typeof imp[k]==='number')score[q[1]].imps.push(imp[k])});const ranked=Object.entries(score).map(([d,x])=>{const mean=x.vals.length?Math.abs(x.vals.reduce((a,b)=>a+b,0)/x.vals.length)/2:0;const unc=1-mean;const sal=x.imps.length?Math.max(...x.imps)/2:0;return {d,priority:unc*.7+sal*.3}}).sort((a,b)=>b.priority-a.priority).slice(0,3);const bank=ranked.map(x=>(ADAPT[x.d]||[])[0]).filter(Boolean);const specials=topics.map(t=>SPECIAL[t]).filter(Boolean);adaptive=[...bank,...specials].slice(0,4);save()}
-function renderQ(){const ds=currentData();if(type===1 && i===CORE.length-1 && !adaptive.length){/* adaptive questions are appended only after finishing core */}
-const q=ds[i];if(!q){finalize();return}const pct=Math.round((i+1)/ds.length*100);document.getElementById('testPill').textContent=type===1?'Test 1 · Grandes valeurs':'Test 2 · Grandes propositions';document.getElementById('countPill').textContent=`${i+1} / ${ds.length}`;document.getElementById('progress').style.width=pct+'%';document.getElementById('pct').textContent=pct+'%';document.getElementById('axisPill').textContent=q.axis||q.topic;document.getElementById('typePill').textContent=q.adaptive?'Question de précision':type===1?'Valeurs':'Proposition';document.getElementById('qtitle').textContent=type===1?'Laquelle de ces deux idées vous ressemble le plus ?':q.q;document.getElementById('simpleExplain').innerHTML='<b>En clair :</b> '+(q.why||'Vous comparez deux façons de répondre au même problème.');document.getElementById('choices').innerHTML=(type===1?(order[i]||[0,1]):[0,1]).map((o,j)=>`<div class="choice" style="cursor:default" aria-hidden="true"><span class="letter">${j?'B':'A'}</span><span class="choiceText"><b style="display:block;font-size:11px;color:#667085;margin-bottom:6px">PROPOSITION ${j?'B':'A'}</b>${q[o===0?'a':'b']}${type===1&&q[o===0?'helpA':'helpB']?`<span style="display:block;margin-top:5px;color:#667085;font-size:11px;font-weight:600">En clair : ${q[o===0?'helpA':'helpB']}</span>`:''}</span></div>`).join('')+`<div class="answerTitle">Vous vous situez plutôt où ?</div><div class="answerHelp">Vous pouvez choisir entre les deux si aucune formulation ne vous représente complètement.</div><div class="answerScale">${['Beaucoup plus A','Plutôt A','Entre les deux','Plutôt B','Beaucoup plus B'].map((t,j)=>`<button class="answerBtn ${ans[i]===j-2?'sel':''}" onclick="answer(${j-2})">${t}</button>`).join('')}</div>`;document.getElementById('noneChoice').classList.toggle('sel',ans[i]==='none');document.getElementById('dontKnow').classList.toggle('sel',ans[i]==='dk');document.getElementById('imps').innerHTML=['Peu important','Important','Essentiel'].map((t,j)=>`<button class="imp ${imp[i]===j?'sel':''}" onclick="setImp(${j})">${t}</button>`).join('');document.getElementById('back').disabled=i===0;document.getElementById('back').style.opacity=i===0?.5:1;document.getElementById('next').textContent=i===ds.length-1?'Voir mon résultat →':'Suivant →';document.getElementById('error').textContent='';const banner=document.getElementById('adaptiveBanner');banner.style.display=(type===1&&i>=CORE.length)?'block':'none';banner.textContent='Dernières questions : elles servent seulement à préciser les dimensions où votre profil est encore partagé. Le test reste court.';save()}
-function answer(v){ans[i]=v;renderQ()}
-function setImp(v){imp[i]=v;renderQ()}
-function good(){if(ans[i]===null){document.getElementById('error').textContent='Choisissez une réponse ou « je ne sais pas ». ';return false}if(imp[i]===null){document.getElementById('error').textContent='Indiquez l’importance de ce sujet.';return false}return true}
-function next(){if(!good())return;if(type===1&&i===CORE.length-1&&!adaptive.length){buildAdaptive();i++;renderQ();return}const n=currentData().length;if(i<n-1){i++;renderQ()}else finalize()}
-function back(){if(i>0){i--;renderQ()}}
-function finalize(){save();if(type===1){calculate();show('profile')}else{result2();show('results2')}}
-function quitQuiz(){if(confirm('Quitter le test ? Votre progression reste enregistrée sur cet appareil.'))home()}
-function feedback(x){localStorage.setItem('vbpro4_feedback_'+Date.now(),x);toast(x==='clear'?'Merci !':'Merci, nous utiliserons ce retour pour améliorer la formulation.')}
-
-const PARTY_MARKS={
-"La France insoumise":["LFI","#7b5dc8"],"Parti communiste français":["PCF","#b5193f"],"Parti socialiste":["PS","#df2160"],
-"Génération·s":["G·S","#9146a7"],"Place publique":["PP","#6c53a4"],"Les Écologistes":["E","#1e9b58"],
-"Parti Radical de Gauche":["PRG","#b33d8b"],"Renaissance":["RE","#0b2d4f"],"Mouvement Démocrate":["MD","#4c67c7"],
-"Horizons":["H","#111827"],"Parti Radical":["PR","#36558a"],"Union des Démocrates et Indépendants":["UDI","#0b5fae"],
-"Les Républicains":["LR","#1d4f91"],"Union des droites pour la République":["UDR","#203552"],
-"Rassemblement National":["RN","#173f70"],"Reconquête":["R","#a93f4b"],"Debout la France":["DLF","#1683b5"],
-"Union populaire républicaine":["UPR","#25518a"],"Volt France":["V","#6b56d8"]
-};
-function partyMark(name){const x=PARTY_MARKS[name]||[name.slice(0,2).toUpperCase(),"#667085"];return `<span class="partyLogo" style="background:${x[1]}">${x[0]}</span>`}
-function shortFamily(name){return (PARTY_MARKS[name]||["", ""])[0]}
-function drawRadar(){
- const svg=document.getElementById('radar'); if(!svg||!profile?.dims)return;
- const keys=Object.keys(DIM),cx=160,cy=160,R=112,n=keys.length;
- const pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
- let out='';
- [1,.66,.33].forEach(r=>{const pts=keys.map((_,i)=>pt(i,R*r).join(',')).join(' ');out+=`<polygon points="${pts}" fill="none" stroke="#e4e7ec" stroke-width="1"/>`});
- keys.forEach((k,i)=>{const [x,y]=pt(i,R);const [tx,ty]=pt(i,R+22);out+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#eef0f4"/><text x="${tx}" y="${ty}" text-anchor="middle" font-size="9" font-weight="800" fill="#667085">${DIM[k][0]}</text>`});
- const vals=keys.map(k=>Math.max(.08,Math.abs(profile.dims[k].score)/2)); const pts=keys.map((k,i)=>pt(i,R*vals[i]).join(',')).join(' ');
- out+=`<polygon points="${pts}" fill="rgba(98,93,245,.18)" stroke="#625df5" stroke-width="3" stroke-linejoin="round"/>`;
- keys.forEach((k,i)=>{const [x,y]=pt(i,R*vals[i]);out+=`<circle cx="${x}" cy="${y}" r="5" fill="#fff" stroke="#625df5" stroke-width="3"/>`});
- svg.innerHTML=out;
-}
-function partyFocusReason(p){
- const topics=topTopics().slice(0,3); 
- if(!topics.length)return "Vous n’avez pas encore indiqué de sujet prioritaire.";
- const match=topics.filter(t=>(p[5]||[]).includes(t));
- return match.length?`Votre profil fait remonter ${match.join(', ')} parmi vos priorités ; cette formation publie des positions sur ces thèmes.`:`Vos priorités ne figurent pas explicitement parmi les thèmes affichés par cette fiche : consultez directement son programme.`;
-}
-function renderPartyShowcase(){
- const root=document.getElementById('partyShowcase'); if(!root)return;
- const arr=PARTIES.filter(p=>topTopics().some(t=>(p[5]||[]).includes(t))).slice(0,3);
- const list=arr.length?arr:PARTIES.slice(0,3);
- root.innerHTML=list.map(p=>`<article class="card partyMini"><div class="partyMiniTop">${partyMark(p[0])}<div><div class="partyMiniName">${p[0]}</div><div class="partyMiniFamily">${p[1]}</div></div></div><div class="miniReason">${partyFocusReason(p)}</div><div class="miniTags">${(p[5]||[]).map(t=>`<span>${t}</span>`).join('')}</div><div class="actions" style="margin-top:12px"><button class="btn soft" onclick='openParty(${JSON.stringify(p[0])})'>Voir la fiche →</button></div></article>`).join('');
-}
-function openParty(name){
- const p=PARTIES.find(x=>x[0]===name); if(!p)return;
- openDrawer(`<div class="drawerTop"><div>${partyMark(p[0])}</div><button class="topbtn" onclick="closeDrawer()">×</button></div>
- <div style="margin-top:12px"><div class="eyebrow">${p[1]}</div><h2>${p[0]}</h2><p class="muted">${p[4]}</p>
- <div class="notice"><b>Pourquoi cette fiche apparaît :</b> ${partyFocusReason(p)}</div>
- <div class="section" style="margin-top:22px"><h3>Thèmes publics mis en avant</h3><div class="miniTags">${(p[5]||[]).map(t=>`<span>${t}</span>`).join('')}</div></div>
- <div class="actions"><a class="btn secondary" target="_blank" rel="noopener" href="${p[2]}">Site officiel ↗</a><a class="btn soft" target="_blank" rel="noopener" href="${p[3]}">Programme / projet ↗</a></div>
- </div>`);
-}
-function openDrawer(content){let d=document.getElementById('detailDrawer');if(!d){d=document.createElement('div');d.id='detailDrawer';d.className='detailDrawer';d.onclick=e=>{if(e.target===d)closeDrawer()};document.body.appendChild(d)}d.innerHTML=`<div class="drawerBox">${content}</div>`;d.classList.add('show')}
-function closeDrawer(){document.getElementById('detailDrawer')?.classList.remove('show')}
-function calculate(){const dims={};Object.keys(DIM).forEach(k=>dims[k]={sum:0,n:0,score:0});const ds=CORE.concat(adaptive);ds.forEach((q,k)=>{if(q&&typeof ans[k]==='number'){dims[q[1]].sum+=ans[k];dims[q[1]].n++}});Object.keys(dims).forEach(k=>dims[k].score=dims[k].n?dims[k].sum/dims[k].n:0);const W={eco:.28,soc:.18,auth:.14,open:.15,ecology:.15,demo:.10};let overall=0;Object.entries(W).forEach(([k,w])=>overall+=(dims[k].score/2)*w);let label=overall>=.55?'Plutôt à gauche':overall>=.20?'Centre-gauche':overall<=-.55?'Plutôt à droite':overall<=-.20?'Centre-droit':'Plutôt au centre';const answered=ans.filter(x=>typeof x==='number').length,unknown=ans.filter(x=>x==='dk').length;const usable=answered/(CORE.length+adaptive.length);const clarity=usable>=.82&&unknown<=3?'Profil assez clair':usable>=.65?'Profil exploitable':'Profil peu tranché';profile={dims,overall,label,answered,unknown,clarity};document.getElementById('label').textContent=label;document.getElementById('desc').textContent=label==='Plutôt au centre'?'Vos réponses sont assez partagées entre les deux grandes directions mesurées. Regardez surtout les dimensions détaillées.':label.includes('gauche')?'Vos réponses penchent davantage vers la redistribution, l’intervention publique et/ou la transformation sociale sur les dimensions mesurées.':'Vos réponses penchent davantage vers la liberté économique, l’autorité et/ou l’autonomie nationale sur les dimensions mesurées.';document.getElementById('dot').style.left=((1-overall)/2*100)+'%';document.getElementById('qualityText').textContent=`${clarity} · ${answered}/${CORE.length+adaptive.length} réponses exploitables. Ce niveau renseigne la complétude, pas la « justesse » scientifique.`;document.getElementById('axes').innerHTML=Object.keys(dims).map(k=>{const d=dims[k],p=Math.round((d.score+2)/4*100);return `<div class="card axis"><div class="axisHead"><b>${DIM[k][0]}</b><span>${p<43?'plutôt '+DIM[k][1]:p>57?'plutôt '+DIM[k][2]:'entre les deux'}</span></div><div class="track"><span style="width:${p}%"></span></div><div class="poles"><span>${DIM[k][1]}</span><span>${DIM[k][2]}</span></div></div>`}).join('');renderPriorities();renderParties();renderCompare();renderPriorityScreen();drawRadar();renderPartyShowcase();updatePassport()}
-function priorityMap(){const ds=CORE.concat(adaptive),m={};ds.forEach((q,k)=>{if(q&&q[2]&&typeof imp[k]==='number')m[q[2]]=(m[q[2]]||0)+imp[k]+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])}
-function renderPriorities(){const arr=priorityMap().slice(0,6);document.getElementById('priorities').innerHTML=arr.map(([t,v],n)=>`<div class="priority"><b>${n+1}. ${t}</b><span>${v>=5?'Essentiel':v>=3?'Important':'Secondaire'}</span></div>`).join('');updatePassport()}
-function topTopics(){return priorityMap().slice(0,3).map(x=>x[0])}
-function renderFilters(){const fam=['Tous',...new Set(PARTIES.map(x=>x[1]))];document.getElementById('filters').innerHTML=fam.map(f=>`<button class="filter ${partyFilter===f?'on':''}" onclick="partyFilter=${JSON.stringify(f)};renderParties()">${f}</button>`).join('')}
-function renderParties(){renderFilters();const q=(document.getElementById('search')?.value||'').toLowerCase(),top=topTopics(),list=PARTIES.filter(p=>(partyFilter==='Tous'||p[1]===partyFilter)&&p[0].toLowerCase().includes(q));document.getElementById('parties').innerHTML=list.map(p=>{const focus=top.map(t=>`<div class="focusItem"><b>${t}</b><div>${p[5].includes(t)?'Ce thème apparaît parmi les thèmes publics de cette formation. Consultez le document pour vérifier la proposition exacte.':'Ce thème doit être vérifié directement dans le document officiel.'}</div></div>`).join('');return `<article class="card partyCard"><div style="display:flex;gap:12px;align-items:center">${partyMark(p[0])}<div><div class="tag">${p[1]}</div><div class="partyName">${p[0]}</div></div></div><div class="partyStatus">${p[4]}</div><div class="focus"><b>Vos sujets prioritaires :</b>${focus}</div><div class="actions" style="margin-top:13px"><button class="btn soft" onclick='openParty(${JSON.stringify(p[0])})'>Voir la fiche →</button><a class="btn secondary" href="${p[2]}" target="_blank" rel="noopener noreferrer">Site officiel ↗</a><a class="btn secondary" href="${p[3]}" target="_blank" rel="noopener noreferrer">Programme ↗</a><button class="btn secondary" onclick="toggleParty(${JSON.stringify(p[0])})">${selected.includes(p[0])?'Retirer':'Comparer'}</button></div></article>`}).join('')||'<div class="card" style="grid-column:1/-1">Aucune formation trouvée.</div>'}
-function toggleParty(name){if(selected.includes(name))selected=selected.filter(x=>x!==name);else if(selected.length<3)selected.push(name);else return toast('Vous pouvez comparer au maximum 3 formations à la fois.');renderParties();renderCompare()}
-function renderCompare(){if(!document.getElementById('compareResult'))return;document.getElementById('selectedParties').innerHTML=selected.length?selected.map(x=>`<span class="selParty">${x}</span>`).join(''):'<span class="muted" style="font-size:12px">Choisissez vous-même jusqu’à trois formations dans les cartes.</span>';const top=topTopics();document.getElementById('compareResult').innerHTML=selected.length?selected.map(name=>{const p=PARTIES.find(x=>x[0]===name);const shared=top.filter(t=>p[5].includes(t));return `<div class="priority"><div><b>${p[0]}</b><div class="muted" style="font-size:12px;margin-top:3px">${shared.length?'Vos thèmes prioritaires apparaissent dans les thèmes publics suivis par cette formation : '+shared.join(', ')+'.':'Aucun de vos trois premiers thèmes n’est explicitement listé dans les thèmes suivis par cette fiche : vérifiez directement le programme.'}</div></div><a class="src" href="${p[3]}" target="_blank" rel="noopener">Source ↗</a></div>`}).join(''):'<div class="detailBox">Choisissez vous-même les formations à comparer. L’application n’effectue pas de classement automatique.</div>'}
-function renderPriorityScreen(){if(!document.getElementById('priorityBig'))return;const arr=priorityMap().slice(0,6);document.getElementById('priorityBig').innerHTML=arr.map(([t,v],n)=>`<div class="priority"><div><b>${n+1}. ${t}</b><div class="muted" style="font-size:12px">Sujet ayant reçu le plus d’importance dans vos réponses.</div></div><span>${v>=5?'Essentiel':v>=3?'Important':'Secondaire'}</span></div>`).join('');const topics=[...new Set(CORE.concat(adaptive).map(q=>q[2]))];if(document.getElementById('topicBtns'))document.getElementById('topicBtns').innerHTML=topics.map(t=>`<button class="topicPick ${compareTopic===t?'on':''}" onclick="compareTopic=${JSON.stringify(t)};renderPriorityCompare()">${t}</button>`).join('');if(typeof renderPriorityCompare==='function')renderPriorityCompare()}
-function renderPriorityCompare(){if(!document.getElementById('topicCompare'))return;const p=PARTIES.slice(0,6);document.getElementById('topicCompare').innerHTML=p.map(x=>`<div class="priority"><b>${x[0]}</b><a class="src" href="${x[3]}" target="_blank" rel="noopener">Voir la source ↗</a></div>`).join('')}
-
-function updatePassport(){
- const chipRoot=document.getElementById('passportChips'); if(!chipRoot)return;
- const arr=priorityMap().slice(0,3);
- chipRoot.innerHTML=arr.map(x=>`<span class="passportChip">★ ${x[0]}</span>`).join('');
- const p=arr[0]?.[0]||'Vos priorités';
- document.getElementById('priorityMain').textContent=p;
- document.getElementById('priorityMainText').textContent=arr.length?`C’est le thème qui a reçu le plus de poids dans vos réponses. L’importance d’un thème n’est pas confondue avec votre position sur ce thème.`:'Vous pouvez indiquer l’importance des sujets pendant le test.';
-}
-function downloadShareCard(){
- const c=document.createElement('canvas'),ctx=c.getContext('2d');c.width=1200;c.height=675;
- const g=ctx.createLinearGradient(0,0,1200,675);g.addColorStop(0,'#101828');g.addColorStop(1,'#2d3a60');ctx.fillStyle=g;ctx.fillRect(0,0,c.width,c.height);
- ctx.globalAlpha=.18;ctx.fillStyle='#7c76ff';ctx.beginPath();ctx.arc(1070,90,190,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
- ctx.fillStyle='#cbd0dc';ctx.font='700 24px Inter,Arial';ctx.fillText('VOTEZ BIEN ! · MON PASSEPORT POLITIQUE',70,82);
- ctx.fillStyle='#fff';ctx.font='900 66px Inter,Arial';ctx.fillText(document.getElementById('label').textContent,70,185);
- ctx.fillStyle='#d7dbe5';ctx.font='500 25px Inter,Arial';ctx.fillText('Un résultat issu de mes propres réponses.',70,230);
- ctx.fillStyle='#fff';ctx.font='800 26px Inter,Arial';ctx.fillText('Mes priorités',70,320);
- const arr=priorityMap().slice(0,3);arr.forEach((x,i)=>{ctx.fillStyle='#eef0ff';ctx.roundRect(70,350+i*58,260,40,12);ctx.fill();ctx.fillStyle='#4f46e5';ctx.font='800 17px Inter,Arial';ctx.fillText(x[0],87,376+i*58)});
- ctx.fillStyle='#98a2b3';ctx.font='500 16px Inter,Arial';ctx.fillText('votezbien.fr · comparez les idées avec leurs sources',70,610);
- c.toBlob(b=>{if(!b)return;const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mon-passeport-votez-bien.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)},'image/png')
-}
-function result2(){const a=ans.filter(x=>typeof x==='number').length,unknown=ans.filter(x=>x==='none'||x==='dk').length,ess=imp.filter(x=>x===2).length;document.getElementById('stats2').innerHTML=[['Réponses renseignées',`${a}/${PROPS.length}`],['Sujets essentiels',`${ess}`],['Non tranchés',`${unknown}`]].map(x=>`<div class="card stat"><div class="eyebrow">${x[0]}</div><div class="statNum">${x[1]}</div></div>`).join('');document.getElementById('details2').innerHTML=PROPS.map((q,k)=>{const v=ans[k],text=v==='none'?'Aucune des deux / les deux me correspondent':v==='dk'?'Je ne sais pas assez pour me prononcer':q[v===0?2:3];return `<div class="priority"><div><b>${q[1]}</b><div class="muted" style="font-size:12px;margin-top:3px">${text}</div></div><span>${['Peu important','Important','Essentiel'][imp[k]??0]}</span></div>`}).join('')}
-function share(){const t=`Mon passeport politique sur Votez bien ! : ${document.getElementById('label').textContent}.`;if(navigator.share)navigator.share({title:'Votez bien !',text:t}).then(()=>toast('Profil partagé')).catch(()=>{});else navigator.clipboard?.writeText(t).then(()=>toast('Profil copié'))}
-function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
-function modal(kind){let body='';if(kind==='method')body=`<div class="eyebrow">Méthode</div><h2>Simple à remplir, prudent à interpréter.</h2><p class="muted">Les questions utilisent des alternatives plutôt qu’une simple série « d’accord / pas d’accord », une seule idée à la fois, des formulations simples et une possibilité de ne pas se prononcer. Les positions A/B sont affichées dans un ordre aléatoire pour répartir les effets de position.</p><p class="muted">Le résultat idéologique n’utilise <b>pas</b> l’importance des sujets. L’importance sert à faire ressortir les thèmes qui comptent réellement pour vous lorsque vous explorez les partis et les propositions.</p><p class="muted">Aucune batterie de questions ne peut garantir à elle seule un résultat « 100 % objectif ». Pour publier l’outil comme test validé, il faut encore réaliser des entretiens cognitifs, un pilote, une analyse d’items, une analyse de fiabilité et une validation externe.</p><div class="actions"><a class="btn secondary" href="https://www.pewresearch.org/writing-survey-questions/" target="_blank">Méthode des questionnaires ↗</a><a class="btn secondary" href="https://www.europeansocialsurvey.org/sites/default/files/2023-06/ESS_core_questionnaire_socio_political_ori.pdf" target="_blank">ESS · dimensions politiques ↗</a><a class="btn secondary" href="https://electionstudies.org/data-center/2022-pilot-study/" target="_blank">ANES · pilote ↗</a><a class="btn secondary" href="https://liste.cnccfp.fr/liste_partis.php" target="_blank">CNCCFP · partis ↗</a></div>`;else{const ds=currentData(),q=ds[i];body=`<div class="eyebrow">Pourquoi cette question ?</div><h2>${q.topic||q.axis}</h2><p class="muted">${q.why||'Cette question sert à distinguer une dimension politique précise.'}</p><div class="notice"><b>En clair :</b> vous comparez deux façons de répondre au même problème. Vous pouvez choisir « entre les deux » ou « je ne sais pas ».</div>`}document.getElementById('modalBody').innerHTML=body;document.getElementById('modal').classList.add('show')}
-init(); updateResumeV5();
-
-
-if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));}
-</script>
-<nav class="bottomNav" aria-label="Navigation">
-<button onclick="home()"><i>⌂</i>Accueil</button>
-<button onclick="show('profile')"><i>◉</i>Profil</button>
-<button onclick="show('priorities')"><i>★</i>Priorités</button>
-</nav>
+<script src="./data.js"></script>
+<script src="./scoring.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
